@@ -1,0 +1,4 @@
+Simulador de Costos para Emprendimientos — v1.0
+Copyright © 2026 Miguel Segura Verano.
+Elaborado por: Miguel Segura Verano
+Uso autorizado para el proyecto: 1122Lab

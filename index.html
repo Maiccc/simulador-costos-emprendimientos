@@ -1,0 +1,132 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Simulador educativo de costos para ideas de negocio desarrollado para 1122Lab.">
+<meta name="author" content="Miguel Segura Verano">
+<meta name="application-name" content="1122Lab Simulador de Costos">
+<meta name="theme-color" content="#111111">
+<title>Simulador de Costos para Ideas de Negocio | 1122Lab</title>
+<style>
+:root{--y:#f6b900;--b:#111;--bg:#f3f4f6;--blue:#0b57d0;--g:#18864b;--r:#c9362b;--m:#667085}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#222}
+header{background:#0b0b0b;color:#fff;border-bottom:5px solid var(--y);position:sticky;top:0;z-index:5}
+.wrap{max-width:1120px;margin:auto}.top{padding:16px 20px}.top h1{margin:0;font-size:24px}.top small{color:#ddd}
+nav{display:flex;gap:6px;overflow:auto;padding:0 20px 12px}.tab{border:0;border-radius:8px;padding:9px 12px;background:#262626;color:white;white-space:nowrap;cursor:pointer}.tab.active{background:var(--y);color:#111;font-weight:700}
+main{padding:22px}.panel{display:none}.panel.active{display:block}.credit{font-size:12px;color:var(--m);margin-bottom:12px}
+.card{background:white;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #00000012}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}input,select,textarea{width:100%;padding:9px;border:1px solid #ccd1d8;border-radius:8px}
+.edit{background:#fff3aa;color:var(--blue);font-weight:700}.note{background:#fff8d8;border-left:5px solid var(--y);padding:13px;border-radius:8px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi{background:#fff;border-top:5px solid var(--y);border-radius:11px;padding:14px;box-shadow:0 2px 8px #00000010}.kpi span{font-size:11px;color:var(--m);font-weight:700}.kpi strong{display:block;font-size:23px;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}th{background:#111;color:#fff;text-align:left;padding:9px}td{padding:8px;border-bottom:1px solid #e5e7eb}.right{text-align:right}
+.signal{padding:12px;border-radius:9px;margin:8px 0;font-weight:700}.good{background:#eaf8ef;color:#176c3e}.warn{background:#fff5cf;color:#7b5b00}.bad{background:#ffeceb;color:#a72c22}
+.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer}.yellow{background:var(--y);color:#111}.dark{background:#111;color:#fff}.light{background:#e9edf2}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.scenario{border:1px solid #e2e5ea;border-radius:12px;padding:13px}.scenario h3{border-bottom:3px solid var(--y);padding-bottom:7px}
+.chart{height:240px;border-left:1px solid #bbb;border-bottom:1px solid #bbb;display:flex;align-items:flex-end;gap:7px;padding:8px}.bar{flex:1;min-width:16px;background:#aad8b9;position:relative}.bar.neg{background:#efb1ac}.bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:10px}
+footer{text-align:center;color:#777;padding:18px;font-size:12px}
+@media(max-width:850px){.grid,.grid2,.kpis{grid-template-columns:1fr}.card{overflow:auto}}
+@media print{header,nav,.no-print{display:none!important}.panel{display:block!important}.card{box-shadow:none;border:1px solid #ddd}}
+</style></head><body>
+<header><div class="wrap"><div class="top"><h1>SIMULADOR DE COSTOS — IDEAS DE NEGOCIO</h1><small>Producto educativo · Versión 1.0 · 1122Lab</small></div><nav>
+<button class="tab active" data-p="inicio">Inicio</button><button class="tab" data-p="costos">1. Costos</button><button class="tab" data-p="ventas">2. Ventas</button><button class="tab" data-p="proy">3. Proyección</button><button class="tab" data-p="esc">4. Escenarios</button><button class="tab" data-p="tablero">5. Tablero</button><button class="tab" data-p="reporte">6. Reporte</button>
+</nav></div></header>
+<main class="wrap">
+<section id="inicio" class="panel active"><div style="display:inline-block;background:#111;color:#fff;border-left:5px solid #f6b900;padding:7px 10px;border-radius:7px;margin-bottom:10px;font-size:12px"><b>Versión oficial 1.0</b></div><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="grid2"><div class="card"><h2>Convierte tu idea en números sencillos</h2><p>Completa solo los campos <b>amarillos con texto azul</b>. La app calcula automáticamente costos, margen, punto de equilibrio, proyección y escenarios.</p><div class="note"><b>Objetivo:</b> comprender cómo cambian los resultados cuando cambias tus decisiones.</div><div class="note" style="margin-top:10px"><b>Compatibilidad:</b> puedes usar esta aplicación desde una PC abriendo el archivo HTML en Chrome, Edge o Firefox, o publicarla en la web para usarla mediante un enlace. No requiere Excel para funcionar.</div><br><button class="btn yellow" onclick="go('costos')">Comenzar →</button></div>
+<div class="card"><h3>Ruta</h3><p>1. Organiza costos</p><p>2. Define precio y ventas</p><p>3. Revisa 12 meses</p><p>4. Compara escenarios</p><p>5. Interpreta y reporta</p></div></div></section>
+
+<section id="costos" class="panel"><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="card"><h2>1. Costos</h2><div class="grid"><div><label>Idea de negocio</label><input class="edit save" id="business" value="EcoBox Lunch"></div><div><label>Producto / servicio</label><input class="edit save" id="product" value="Box de almuerzo saludable"></div><div><label>Unidad de venta</label><input class="edit save" id="unit" value="box"></div></div></div>
+<div class="card"><h3>Costos variables por venta</h3><table><thead><tr><th>Concepto</th><th>Cantidad</th><th>Precio</th><th>Costo</th></tr></thead><tbody id="varRows"></tbody></table><h3>Total variable: <span id="varTotal"></span></h3></div>
+<div class="card"><h3>Costos fijos mensuales</h3><table><thead><tr><th>Concepto</th><th>Monto</th></tr></thead><tbody id="fixedRows"></tbody></table><h3>Total fijo: <span id="fixedTotal"></span></h3></div>
+<div class="card"><h3>Dinero para comenzar</h3><table><thead><tr><th>Concepto</th><th>Monto</th><th>¿Indispensable?</th></tr></thead><tbody id="initialRows"></tbody></table><h3>Inversión inicial: <span id="initialTotal"></span></h3></div></section>
+
+<section id="ventas" class="panel"><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="card"><h2>2. Datos de venta</h2><div class="grid"><div><label>Precio de venta (S/)</label><input class="edit save" id="price" type="number" step=".01" value="22.5"></div><div><label>Unidades mes 1</label><input class="edit save" id="units1" type="number" value="50"></div><div><label>Crecimiento mensual (%)</label><input class="edit save" id="growth" type="number" step=".1" value="4"></div></div></div>
+<div class="kpis"><div class="kpi"><span>COSTO VARIABLE / UNIDAD</span><strong id="kVar"></strong></div><div class="kpi"><span>MARGEN POR VENTA</span><strong id="kMargin"></strong></div><div class="kpi"><span>MARGEN %</span><strong id="kMarginPct"></strong></div><div class="kpi"><span>PUNTO DE EQUILIBRIO</span><strong id="kBE"></strong></div></div><br>
+<div class="card"><h3>Semáforo básico</h3><div id="sig1"></div><div id="sig2"></div></div></section>
+
+<section id="proy" class="panel"><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="card"><h2>3. Proyección de 12 meses</h2><p style="color:#667085">Es una simulación basada en los supuestos ingresados.</p><div style="overflow:auto"><table id="projTable"></table></div></div><div class="card"><h3>Resultado por mes</h3><div class="chart" id="chart"></div></div></section>
+
+<section id="esc" class="panel"><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="card"><h2>4. Escenarios</h2><p>Compara cómo cambian los resultados.</p><div class="grid2" id="scenarioGrid"></div></div>
+<div class="card"><h3>Bitácora de decisión</h3><div class="grid2"><div><label>¿Qué variable cambiaste y por qué?</label><textarea class="edit save" id="q1" rows="3"></textarea></div><div><label>¿Qué resultado cambió más?</label><textarea class="edit save" id="q2" rows="3"></textarea></div><div><label>¿Qué escenario elegirías? Sustenta con dos datos.</label><textarea class="edit save" id="q3" rows="3"></textarea></div><div><label>¿Qué mejorarías?</label><textarea class="edit save" id="q4" rows="3"></textarea></div></div></div></section>
+
+<section id="tablero" class="panel"><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="card"><h2>5. Tablero</h2><p id="dashTitle"></p><div class="kpis"><div class="kpi"><span>PRECIO</span><strong id="dPrice"></strong></div><div class="kpi"><span>COSTO VARIABLE / UNIDAD</span><strong id="dCost"></strong></div><div class="kpi"><span>MARGEN</span><strong id="dMargin"></strong></div><div class="kpi"><span>PUNTO DE EQUILIBRIO</span><strong id="dBE"></strong></div></div></div>
+<div class="card"><h3>Resumen anual</h3><table><tbody id="summary"></tbody></table></div>
+<div class="card"><h3>Asistente de interpretación</h3><p>Esta versión utiliza reglas pedagógicas del simulador; no necesita una cuenta de IA.</p><button class="btn yellow" onclick="explain()">Explícame mis resultados</button><div class="note" id="explain" style="margin-top:12px">Presiona el botón.</div></div></section>
+
+<section id="reporte" class="panel"><div class="credit"><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span></div>
+<div class="card"><h2>6. Reporte final</h2><div class="grid"><div><label>Estudiante / equipo</label><input class="edit save" id="student"></div><div><label>Curso / sección</label><input class="edit save" id="course"></div><div><label>Fecha</label><input class="edit save" id="date" type="date"></div></div></div>
+<div class="card"><h3>Ficha de resultados</h3><table><tbody id="finalReport"></tbody></table></div><div class="card"><h3>Conclusión</h3><label>¿La idea es viable con los supuestos planteados? ¿Qué decisión principal tomarías?</label><textarea class="edit save" id="conclusion" rows="5"></textarea></div>
+<div class="actions no-print"><button class="btn yellow" onclick="window.print()">Imprimir / Guardar PDF</button><button class="btn dark" onclick="saveData()">Guardar avance</button><button class="btn light" onclick="resetData()">Restaurar ejemplo</button></div></section>
+</main><footer><b>Elaborado por: Miguel Segura Verano</b><br><span style="font-size:11px">Uso autorizado para el proyecto: <b>1122Lab</b></span> · Simulador de Costos para Ideas de Negocio · v1.0</footer>
+<script>
+const vars=[["Materia prima principal",1,8],["Empaque",1,1.2],["Mano de obra por unidad",.25,8],["Comisión de venta",1,.8],["Delivery",1,1.5],["Otro costo variable",0,0]];
+const fixed=[["Alquiler / espacio",850],["Servicios e internet",180],["Marketing mensual",300],["Herramientas digitales",120],["Pago al emprendedor",1200],["Otro costo fijo",0]];
+const initial=[["Equipos y utensilios",3500,"Sí"],["Diseño y lanzamiento",1000,"No"],["Primeras compras",1800,"Sí"],["Otro gasto inicial",0,"No"]];
+const money=n=>"S/ "+Number(n||0).toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2});
+function build(){varRows.innerHTML=vars.map(r=>`<tr><td><input class="edit" value="${r[0]}"></td><td><input class="edit vq" type="number" step=".01" value="${r[1]}"></td><td><input class="edit vp" type="number" step=".01" value="${r[2]}"></td><td class="vc right"></td></tr>`).join("");fixedRows.innerHTML=fixed.map(r=>`<tr><td><input class="edit" value="${r[0]}"></td><td><input class="edit fa" type="number" value="${r[1]}"></td></tr>`).join("");initialRows.innerHTML=initial.map(r=>`<tr><td><input class="edit" value="${r[0]}"></td><td><input class="edit ia" type="number" value="${r[1]}"></td><td><select class="edit es"><option ${r[2]=="Sí"?"selected":""}>Sí</option><option ${r[2]=="No"?"selected":""}>No</option></select></td></tr>`).join("")}
+function n(id){return Number(document.getElementById(id).value)||0}
+function calc(price=n("price"),u=n("units1"),g=n("growth")/100){let vt=0;document.querySelectorAll("#varRows tr").forEach(tr=>{let c=(Number(tr.querySelector(".vq").value)||0)*(Number(tr.querySelector(".vp").value)||0);tr.querySelector(".vc").textContent=money(c);vt+=c});let ft=[...document.querySelectorAll(".fa")].reduce((s,e)=>s+(Number(e.value)||0),0),it=[...document.querySelectorAll(".ia")].reduce((s,e)=>s+(Number(e.value)||0),0),m=price-vt,mp=price?m/price:0,be=m>0?Math.ceil(ft/m):null,months=[],units=u;for(let i=1;i<=12;i++){if(i>1)units=Math.round(units*(1+g));let rev=units*price,cv=units*vt,res=rev-cv-ft;months.push({i,units,rev,cv,ft,res})}return{price,vt,ft,it,m,mp,be,months,annualRev:months.reduce((s,x)=>s+x.rev,0),annualCV:months.reduce((s,x)=>s+x.cv,0),annualFixed:ft*12,annualRes:months.reduce((s,x)=>s+x.res,0),annualUnits:months.reduce((s,x)=>s+x.units,0)}}
+function update(){let c=calc();varTotal.textContent=money(c.vt);fixedTotal.textContent=money(c.ft);initialTotal.textContent=money(c.it);kVar.textContent=money(c.vt);kMargin.textContent=money(c.m);kMarginPct.textContent=(c.mp*100).toFixed(1)+"%";kBE.textContent=c.be?c.be+" unidades":"No calculable";sig1.innerHTML=c.m<=0?'<div class="signal bad">🔴 El precio no supera el costo variable.</div>':c.mp<.2?'<div class="signal warn">🟡 El margen es reducido.</div>':'<div class="signal good">🟢 El margen por venta es positivo.</div>';sig2.innerHTML=!c.be?'<div class="signal bad">🔴 No se puede calcular el punto de equilibrio.</div>':n("units1")>=c.be?`<div class="signal good">🟢 Las ventas del mes 1 alcanzan el punto de equilibrio (${c.be}).</div>`:`<div class="signal warn">🟡 Las ventas del mes 1 están por debajo del punto de equilibrio (${c.be}).</div>`;projection(c);dashboard(c);report(c);refreshScenarios()}
+function projection(c){let h="<tr><th>Concepto</th>"+c.months.map(x=>`<th>M${x.i}</th>`).join("")+"<th>Total</th></tr>";let row=(name,key,total)=>"<tr><td><b>"+name+"</b></td>"+c.months.map(x=>`<td>${key=="units"?x[key]:money(x[key])}</td>`).join("")+`<td><b>${key=="units"?total:money(total)}</b></td></tr>`;projTable.innerHTML=h+row("Unidades","units",c.annualUnits)+row("Ingresos","rev",c.annualRev)+row("Costos variables","cv",c.annualCV)+row("Costos fijos","ft",c.annualFixed)+row("Resultado","res",c.annualRes);let mx=Math.max(...c.months.map(x=>Math.abs(x.res)),1);chart.innerHTML=c.months.map(x=>`<div class="bar ${x.res<0?"neg":""}" style="height:${Math.max(8,Math.abs(x.res)/mx*200)}px" title="${money(x.res)}"><span>M${x.i}</span></div>`).join("")}
+function scenarios(){
+  let defs=[
+    ["BASE",n("price"),n("units1"),n("growth"),true],
+    ["OPTIMISTA",24,65,6,false],
+    ["PESIMISTA",20,40,1,false],
+    ["TU RETO",22.5,55,3,false]
+  ];
+  scenarioGrid.innerHTML=defs.map((d,i)=>`<div class="scenario" data-scenario="${i}">
+    <h3>${d[0]}</h3>
+    ${d[4]?'<div class="note" style="margin-bottom:10px"><b>Escenario Base:</b> se actualiza automáticamente con los datos ingresados en la pestaña Ventas.</div>':''}
+    <label>Precio</label><input class="${d[4]?'sp':'edit sp'}" type="number" step=".01" value="${d[1]}" ${d[4]?'readonly':''}>
+    <label>Unidades mes 1</label><input class="${d[4]?'su':'edit su'}" type="number" value="${d[2]}" ${d[4]?'readonly':''}>
+    <label>Crecimiento %</label><input class="${d[4]?'sg':'edit sg'}" type="number" step=".1" value="${d[3]}" ${d[4]?'readonly':''}>
+    <div class="sr"></div>
+  </div>`).join("");
+  document.querySelectorAll(".scenario input:not([readonly])").forEach(e=>e.oninput=refreshScenarios);
+  refreshScenarios();
+}
+function syncBaseScenario(){
+  const base=document.querySelector('.scenario[data-scenario="0"]');
+  if(!base)return;
+  base.querySelector(".sp").value=n("price");
+  base.querySelector(".su").value=n("units1");
+  base.querySelector(".sg").value=n("growth");
+}
+function refreshScenarios(){
+  syncBaseScenario();
+  document.querySelectorAll(".scenario").forEach(card=>{
+    let c=calc(
+      Number(card.querySelector(".sp").value)||0,
+      Number(card.querySelector(".su").value)||0,
+      (Number(card.querySelector(".sg").value)||0)/100
+    );
+    card.querySelector(".sr").innerHTML=`<p><b>Margen:</b> ${money(c.m)}<br><b>Punto de equilibrio:</b> ${c.be||"—"} unidades<br><b>Resultado anual:</b> ${money(c.annualRes)}</p>`;
+  });
+}
+function dashboard(c){dashTitle.textContent=(business.value||"Tu idea")+" — "+(product.value||"producto/servicio");dPrice.textContent=money(c.price);dCost.textContent=money(c.vt);dMargin.textContent=money(c.m);dBE.textContent=c.be?c.be+" unidades":"—";summary.innerHTML=[["Ingresos estimados del año",money(c.annualRev)],["Costos variables del año",money(c.annualCV)],["Costos fijos del año",money(c.annualFixed)],["Resultado estimado del año",money(c.annualRes)],["Inversión inicial",money(c.it)]].map(r=>`<tr><td>${r[0]}</td><td class="right"><b>${r[1]}</b></td></tr>`).join("")}
+function report(c){finalReport.innerHTML=[["Estudiante / equipo",student.value||"—"],["Curso / sección",course.value||"—"],["Idea de negocio",business.value||"—"],["Producto / servicio",product.value||"—"],["Precio",money(c.price)],["Costo variable por unidad",money(c.vt)],["Margen por venta",money(c.m)],["Punto de equilibrio",c.be?c.be+" unidades":"—"],["Ingresos anuales",money(c.annualRev)],["Resultado anual",money(c.annualRes)]].map(r=>`<tr><td>${r[0]}</td><td class="right"><b>${r[1]}</b></td></tr>`).join("")}
+function explain(){let c=calc(),t=c.m<=0?`Tu precio (${money(c.price)}) no supera el costo variable (${money(c.vt)}). Primero revisa precio y costos.`:c.annualRes<0?`Cada venta deja ${money(c.m)}, pero el resultado anual sería ${money(c.annualRes)}. Tu punto de equilibrio es ${c.be} unidades por mes.`:`Cada venta deja ${money(c.m)}. Tu punto de equilibrio es ${c.be} unidades por mes y el resultado anual estimado es ${money(c.annualRes)}.`;document.getElementById("explain").innerHTML=t+"<br><br><b>Pregunta:</b> ¿qué cambiarías primero: precio, ventas o costos? Sustenta con un dato."}
+function go(id){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelector(`[data-p="${id}"]`).classList.add("active");scrollTo(0,0);update()}
+function saveData(){
+  let d={};document.querySelectorAll(".save").forEach(e=>d[e.id]=e.value);
+  try{localStorage.setItem("costos1122v2",JSON.stringify(d));alert("Avance guardado en este navegador.");}
+  catch(e){alert("El simulador funciona, pero este navegador no permite guardar datos localmente en este modo. Puedes continuar usándolo o imprimir/guardar el reporte en PDF.");}
+}
+function loadData(){
+  try{
+    let r=localStorage.getItem("costos1122v2");if(!r)return;
+    let d=JSON.parse(r);Object.entries(d).forEach(([k,v])=>{let e=document.getElementById(k);if(e)e.value=v});
+  }catch(e){}
+}
+function resetData(){
+  if(confirm("¿Restaurar el ejemplo original?")){
+    try{localStorage.removeItem("costos1122v2");}catch(e){}
+    location.reload();
+  }
+}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>go(b.dataset.p));build();loadData();scenarios();document.addEventListener("input",e=>{if(!e.target.closest(".scenario"))update()});date.valueAsDate=new Date();update();
+</script></body></html>
